@@ -4,10 +4,8 @@ cache:
 install:
 - bundle install
 rvm:
-- 1.9.3
-- 2.0
-- 2.1
-- 2.2
+- 2.3
+- 2.4
 notifications:
   email:
     recipients:
@@ -19,15 +17,21 @@ script:
 - gem build sensu-plugins-twilio.gemspec
 - gem install sensu-plugins-twilio-*.gem
 deploy:
-  provider: rubygems
+- provider: rubygems
   api_key:
     secure: gMuxgppKnSouNgTmIsC4o717kiGt9ArP8RC8XsNi+uu9bGYoy2z78gm8QGH1MNgN8Kf6tp6x+PKf5zB881tQjzsbW3P4xMZf6AriqpUdPIodVQ7v49O9sNEao5WLk3uau1waCVGVbrs8Aru38x1MDwEChcSL86umeeU2xrKiZ9Y=
   gem: sensu-plugins-twilio
   on:
     tags: true
     all_branches: true
-    rvm: 1.9.3
-    rvm: 2.0
-    rvm: 2.1
-    rvm: 2.2
+    rvm: 2.3
+    rvm: 2.4
     repo: sensu-plugins/sensu-plugins-twilio
+- provider: script
+  script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-disk-checks
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    rvm: 2.3
+    rvm: 2.4
